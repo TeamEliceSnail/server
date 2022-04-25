@@ -4,19 +4,35 @@ const app = express();
 const mongoose = require("mongoose");
 const react = require("react");
 
+const { mainPage } = require("./db");
+
 app.listen(process.env.PORT, ()=>{
     console.log("서버가 가동되었습니다");
 })
 
 
-mongoose.connect("mongodb://localhost:27017/[디비 이름]",
-    {useNewUrlParser: true, useInifiedTopology: true});
+mongoose.connect(process.env.DBURL, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    dbName: "photocalendar"
+    })
+    .then(()=> console.log("성공적으로 db에 연결됐습니다"))
+    .catch((err)=> console.log(err));
 
-mongoose.connection.on('error', console.error.bind(console, "에러가 발생했습니다"));
+var now = new Date();
+app.get('/', (req, res)=>{ 
+    res.send("hello");
+});
 
 
-app.get('/', (req, res)=>{
-    
+app.post("/", async (req, res) =>{
+    const mainP = new mainPage(req.body);
+    try{
+        await mainP.save();
+        res.send(mainP);
+    }catch(err){
+        res.status(500).send(err);
+    }
 });
 
 
