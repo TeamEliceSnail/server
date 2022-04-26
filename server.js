@@ -7,7 +7,7 @@ const react = require("react");
 const { mainPage } = require("./db");
 
 app.listen(process.env.PORT, ()=>{
-    console.log("서버가 가동되었습니다");
+    console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 })
 
 
@@ -24,16 +24,28 @@ app.get('/', (req, res)=>{
     res.send("hello");
 });
 
+//insert test
 
-app.post("/", async (req, res) =>{
-    const mainP = new mainPage(req.body);
-    try{
-        await mainP.save();
-        res.send(mainP);
-    }catch(err){
-        res.status(500).send(err);
-    }
-});
+    const mainP = new mainPage({
+        date: '20220426',
+          photoUrl: '테스트이미지주소',
+          title: '제목',
+          content:'내용',
+          dateTag: {
+              month: 4,
+              day : 26
+          },
+          bookmark: true,
+    } );
+        mainP.save()
+        .then(()=>{
+            console.log('데이터 삽입 성공')
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        
+
 
 
 //Proxy, axios 공부해오기

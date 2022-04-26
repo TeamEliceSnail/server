@@ -21,7 +21,8 @@ const mainPageSchema = mongoose.Schema({
         type: Boolean,
         default: false
     }
-});
+},
+{timestamps:true});
 
 const mainPage = mongoose.model("mainPage", mainPageSchema);
 
