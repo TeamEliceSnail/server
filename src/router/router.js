@@ -6,7 +6,7 @@ router.get("/", "보안 미들웨어",ctrl.output.home);
 
 router.get("/login", ctrl.output.login);
 
-router.post("/login", ctrl.output.home);
+router.post("/login", "보안 미들웨어", ctrl.output.home);
 
 router.get("/home", "보안 미들웨어", ctrl.output.home);
 

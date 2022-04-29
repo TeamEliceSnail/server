@@ -11,6 +11,10 @@ app.listen(process.env.PORT, ()=>{
 })
 
 
+app.set("views", "./src/pages");
+app.set("view engine", "react");
+app.engine("html", require("ejs").renderFile);
+
 mongoose.connect(process.env.DBURL, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
