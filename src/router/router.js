@@ -1,44 +1,22 @@
 const express = require("express");
 const router = express.Router();
+const ctrl = require("ctrl.js");
+
+router.get("/", "보안 미들웨어",ctrl.output.home);
+
+router.get("/login", ctrl.output.login);
+
+router.post("/login", ctrl.output.home);
+
+router.get("/home", "보안 미들웨어", ctrl.output.home);
 
 
-router.get("/", "보안 미들웨어",
-(req,res) =>{    
-    res.render("인덱스페이지")      //html 파일은 어디에..?
-});
+router.post("/input", "보안 미들웨어", ctrl.output.detail);
 
-router.get("/login",
-    (req, res)=>{
-    res.render("로그인 페이지");
-})
-router.post("/login", 
-    (req, res)=>{
-    res.render("home")
-})
+router.get("/detail", "보안 미들웨어",ctrl.output.detail)
 
-router.get("/home", "보안 미들웨어",
-    (res, req) =>{
-    res.render("home");
-})
+router.post("/detail", "보안 미들웨어", ctrl.output.detail)
 
+router.get("/profile", "보안 미들웨어", ctrl.output.profile)
 
-router.post("/input", 
-    "보안 미들웨어",(res,req)=>{
-    res.render("/detail");
-})
-
-router.get("/detail", "보안 미들웨어",(res,req)=>{
-    res.render("/detail page");
-})
-
-router.post("/detail", "보안 미들웨어", (res,req)=>{
-    res.render("/detail")
-})
-
-router.get("/profile", "보안 미들웨어", (res, req)=>{
-    res.render("/profile")
-})
-
-router.post("/profile", "보안 미들웨어", (res, req)=>{
-    res.render("/profile")
-})
+router.post("/profile", "보안 미들웨어", ctrl.output.profile);
